@@ -1,0 +1,51 @@
+class Node {
+  int data;
+  Node? left;
+  Node? right;
+
+  Node(this.data);
+}
+
+class BinarySearchTree {
+  Node? root;
+
+  void insert(int data) {
+    root = _insertRecursive(root, data);
+  }
+
+  Node _insertRecursive(Node? node, int data) {
+    if (node == null) {
+      return Node(data);
+    }
+
+    if (data < node.data) {
+      node.left = _insertRecursive(node.left, data);
+    } else {
+      node.right = _insertRecursive(node.right, data);
+    }
+
+    return node;
+  }
+
+  int? first() {
+    if (root == null) return null;
+
+    Node current = root!;
+    while (current.left != null) {
+      current = current.left!;
+    }
+
+    return current.data;
+  }
+}
+
+void main() {
+  var bst = BinarySearchTree();
+  bst.insert(50);
+  bst.insert(30);
+  bst.insert(70);
+  bst.insert(20);
+  bst.insert(40);
+
+  print("Nilai terkecil di BST: ${bst.first()}");
+}
